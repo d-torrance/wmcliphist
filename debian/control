@@ -1,0 +1,14 @@
+Source: wmcliphist
+Section: x11
+Priority: extra
+Maintainer: Sebastian Ley <ley@debian.org>
+Build-Depends: dpatch, debhelper (>= 4), libglib1.2-dev, libgtk1.2-dev, xlibs-dev (>> 4.1.0), docbook-to-man
+Standards-Version: 3.6.1.0
+
+Package: wmcliphist
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: Dockapp which provides a history for X11 selections
+ wmcliphist is a dockable application for Window Maker. It keeps a
+ history of clipboard operations and allows you to put previously
+ copied items back to clipboard for pasting to other applications.

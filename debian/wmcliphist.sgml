@@ -1,0 +1,172 @@
+<!doctype refentry PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [
+
+<!-- Process this file with docbook-to-man to generate an nroff manual
+     page: `docbook-to-man manpage.sgml > manpage.1'.  You may view
+     the manual page with: `docbook-to-man manpage.sgml | nroff -man |
+     less'.  A typical entry in a Makefile or Makefile.am is:
+
+manpage.1: manpage.sgml
+	docbook-to-man $< > $@
+
+    
+	The docbook-to-man binary is found in the docbook-to-man package.
+	Please remember that if you create the nroff version in one of the
+	debian/rules file targets (such as build), you will need to include
+	docbook-to-man in your Build-Depends control field.
+
+  -->
+
+  <!-- Fill in your name for FIRSTNAME and SURNAME. -->
+  <!ENTITY dhfirstname "<firstname>Sebastian</firstname>">
+  <!ENTITY dhsurname   "<surname>Ley</surname>">
+  <!-- Please adjust the date whenever revising the manpage. -->
+  <!ENTITY dhdate      "<date>April  3, 2003</date>">
+  <!-- SECTION should be 1-8, maybe w/ subsection other parameters are
+       allowed: see man(7), man(1). -->
+  <!ENTITY dhsection   "<manvolnum>1</manvolnum>">
+  <!ENTITY dhemail     "<email>sebastian.ley@mmweg.rwth-aachen.de</email>">
+  <!ENTITY dhusername  "Sebastian Ley">
+  <!ENTITY dhucpackage "<refentrytitle>WMCLIPHIST</refentrytitle>">
+  <!ENTITY dhpackage   "wmcliphist">
+
+  <!ENTITY debian      "<productname>Debian</productname>">
+  <!ENTITY gnu         "<acronym>GNU</acronym>">
+  <!ENTITY gpl         "&gnu; <acronym>GPL</acronym>">
+]>
+
+<refentry>
+  <refentryinfo>
+    <address>
+      &dhemail;
+    </address>
+    <author>
+      &dhfirstname;
+      &dhsurname;
+    </author>
+    <copyright>
+      <year>2003</year>
+      <holder>&dhusername;</holder>
+    </copyright>
+    &dhdate;
+  </refentryinfo>
+  <refmeta>
+    &dhucpackage;
+
+    &dhsection;
+  </refmeta>
+  <refnamediv>
+    <refname>&dhpackage;</refname>
+
+    <refpurpose>provides a history to X11 selections</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>&dhpackage;</command>
+
+      <arg><option>-h</option></arg>
+      <arg><option>-n <replaceable>num</replaceable></option></arg>
+      <arg><option>-c <replaceable>col</replaceable></option></arg>
+      <arg><option>-i <replaceable>num</replaceable></option></arg>
+      <arg><option>-s <replaceable>size</replaceable></option></arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+    <para>This manual page documents briefly the program
+      <command>&dhpackage;</command>.</para>
+
+    <para>This manual page was written for the &debian; distribution
+      because the original program does not have a manual page.</para>
+
+    <para><command>&dhpackage;</command> is a dockable application
+    which provides a history for the last few selections made in the
+    X11 Window System.
+    </para>
+    
+    <para>Note, that most of <command>&dhpackage;</command>'s features 
+    are accessed by installing a configuration file .wmcliphistrc into
+    your $HOME. Find a well documented example in /usr/share/doc/wmcliphist.
+    </para>
+
+  </refsect1>
+  <refsect1>
+    <title>OPTIONS</title>
+
+    <variablelist>
+      <varlistentry>
+        <term><option>-h</option>
+        </term>
+        <listitem>
+          <para>Show summary of options.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-n num</option>
+        </term>
+        <listitem>
+          <para>Set the number of items to keep in the history.
+	  Default is 10.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-c col</option>
+        </term>
+        <listitem>
+          <para>Set the color for locked items. Default is red.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-i num</option>
+        </term>
+        <listitem>
+          <para>Choose wmcliphist icon antialiasing: If you have a
+	  midtone background provide num=0, for dark backgrounds
+        choose num=1 and for light backgrounds num=2.
+	</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-s size</option>
+        </term>
+        <listitem>
+          <para>Choose wmcliphist icon size, must be one of 16, 30,
+	  40 or 60 (default).
+	</para>
+        </listitem>
+      </varlistentry>
+       
+    </variablelist>
+  </refsect1>
+  <refsect1>
+    <title>AUTHOR</title>
+
+    <para>This manual page was written by &dhusername; &dhemail; for
+      the &debian; system (but may be used by others).  Permission is
+      granted to copy, distribute and/or modify this document under
+      the terms of the &gnu; Free Documentation
+      License, Version 1.1 or any later version published by the Free
+      Software Foundation; with no Invariant Sections, no Front-Cover
+      Texts and no Back-Cover Texts.</para>
+
+  </refsect1>
+</refentry>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-default-dtd-file:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+-->
+
+

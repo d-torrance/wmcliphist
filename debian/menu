@@ -1,0 +1,2 @@
+?package(wmcliphist):needs=X11 section=Apps/Tools\
+  title="wmcliphist" command="/usr/bin/wmcliphist"
