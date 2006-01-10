@@ -1,3 +1,9 @@
+wmcliphist (0.6-3) unstable; urgency=low
+
+  * Drop the build dependency on xlibs-dev. (Closes: #347114) 
+
+ -- Sebastian Ley <ley@debian.org>  Tue, 10 Jan 2006 13:01:13 +0100
+
 wmcliphist (0.6-2) unstable; urgency=low
 
   * Add -s option to manpage (Closes: #244082)
