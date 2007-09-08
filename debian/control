@@ -1,7 +1,7 @@
 Source: wmcliphist
 Section: x11
 Priority: extra
-Maintainer: Sebastian Ley <ley@debian.org>
+Maintainer: Debian QA Group <packages@qa.debian.org> 
 Build-Depends: dpatch, debhelper (>= 4), libglib1.2-dev, libgtk1.2-dev, docbook-to-man
 Standards-Version: 3.6.1.0
 

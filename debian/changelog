@@ -1,3 +1,9 @@
+wmcliphist (0.6-4) unstable; urgency=low
+
+  * Orphan the package 
+
+ -- Sebastian Ley <ley@debian.org>  Sat, 08 Sep 2007 16:21:48 +0200
+
 wmcliphist (0.6-3) unstable; urgency=low
 
   * Drop the build dependency on xlibs-dev. (Closes: #347114) 
