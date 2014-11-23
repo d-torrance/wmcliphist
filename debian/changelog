@@ -1,3 +1,31 @@
+wmcliphist (2.1-1) UNRELEASED; urgency=medium
+
+  * New upstream release.
+  * New maintainer.
+  * debian/compat
+    - Bump to 9.
+  * debian/control
+    - Bump versioned dependency on debhelper to >=9.
+    - Add Homepage and Vcs-* fields.
+    - Remove Build-Depends on dockbook-to-man and dpatch.
+    - Replace Build-Depends on libglib1.2-dev and libgtk1.2-dev with
+      libgtk-3-dev.
+    - Bump Standards-Version to 3.9.6.
+  * debian/copyright
+    - Update to DEP 5 (version 1.0) format.
+  * debian/dirs
+    - Remove unnecessary file.
+  * debian/docs
+    - Remove debian/wmcliphistrc; nonexistent file.
+  * debian/examples
+    - New file; add wmcliphistrc.
+  * debian/source/format
+    - New file; use 3.0 (quilt).
+  * debian/wmcliphist.sgml
+    - Remove file; was used to generate manpage, which is now included upstream.
+
+ -- Doug Torrance <dtorrance@monmouthcollege.edu>  Sun, 23 Nov 2014 07:29:26 -0600
+
 wmcliphist (0.6-4) unstable; urgency=low
 
   * Orphan the package 
