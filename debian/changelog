@@ -10,6 +10,7 @@ wmcliphist (2.1-1) UNRELEASED; urgency=medium
     - Remove Build-Depends on dockbook-to-man and dpatch.
     - Replace Build-Depends on libglib1.2-dev and libgtk1.2-dev with
       libgtk-3-dev.
+    - Add ${misc:Depends} to Depends.
     - Bump Standards-Version to 3.9.6.
   * debian/copyright
     - Update to DEP 5 (version 1.0) format.
@@ -19,12 +20,25 @@ wmcliphist (2.1-1) UNRELEASED; urgency=medium
     - Remove debian/wmcliphistrc; nonexistent file.
   * debian/examples
     - New file; add wmcliphistrc.
+  * debian/menu
+    - Update section.
+    - Quote strings.
+  * debian/patches
+    - (deprecated-declarations.patch, maybe-uninitialized.patch) Fix compiler
+      warnings.
+  * debian/rules
+    - Update to use dh.
+    - Add get-orig-source target.
+    - Add "-Wl,--as-needed" to LDFLAGS; avoids "useless dependency" warnings
+      from dpkg-shlibdeps.
   * debian/source/format
     - New file; use 3.0 (quilt).
+  * debian/watch
+    - New file.
   * debian/wmcliphist.sgml
     - Remove file; was used to generate manpage, which is now included upstream.
 
- -- Doug Torrance <dtorrance@monmouthcollege.edu>  Sun, 23 Nov 2014 07:29:26 -0600
+ -- Doug Torrance <dtorrance@monmouthcollege.edu>  Sun, 23 Nov 2014 09:15:11 -0600
 
 wmcliphist (0.6-4) unstable; urgency=low
 
