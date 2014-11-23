@@ -2,7 +2,7 @@ Source: wmcliphist
 Section: x11
 Priority: extra
 Maintainer: Doug Torrance <dtorrance@monmouthcollege.edu>
-Build-Depends: dpatch, debhelper (>= 4), libglib1.2-dev, libgtk1.2-dev, docbook-to-man
+Build-Depends: dpatch, debhelper (>= 9), libglib1.2-dev, libgtk1.2-dev, docbook-to-man
 Standards-Version: 3.6.1.0
 
 Package: wmcliphist
