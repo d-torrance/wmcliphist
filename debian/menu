@@ -1,2 +1,2 @@
-?package(wmcliphist):needs=X11 section=Apps/Tools\
+?package(wmcliphist):needs=X11 section=Applications/Data Management\
   title="wmcliphist" command="/usr/bin/wmcliphist"
