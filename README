@@ -53,7 +53,8 @@ versions of libraries listed above (see www.gtk.org).
 wmcliphist was tested only on Linux (Red Hat Linux 7.2, kernel 2.4.9,
 gcc 2.96), but it should compile and run on other un*x systems too.
 After installing binary you can create your configuration file in
-~/.wmcliphistrc (sample config file is included).
+~/.wmcliphistrc (sample config file wmcliphistrc is included in
+distribution archive).
 
 Upgrading
 
@@ -106,6 +107,7 @@ Credits
 Michal Krause <michal (at) krause (dot) cz>
 Daniel Richard G. <skunk (at) iskunk (dot) org> (icon set used from version 0.5)
 Michael Beattie (new exec action handling in 0.6)
+Vadim O. Ustiansky (some improvements in 0.7)
 
 
 Special thanx

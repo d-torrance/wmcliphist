@@ -1,3 +1,24 @@
+22/11/2014: v2.1
+- Migrate to GTK3, removing foodock library in the process.
+- Add manpage from Debian.
+- Add -b command line option to select which clipboard to manage.
+- Now maintained by Window Maker Developers team
+  <wmaker-dev@lists.windowmaker.org>.
+
+21/03/2009: v2.0
+- Gentoo patches by Samuli Suominen integrated
+  (http://sources.gentoo.org/viewcvs.py/gentoo-x86/x11-plugins/wmcliphist/files/)
+
+26/06/2005: v1.0
+- confirmation dialogs supports Enter (Yes) and Esc (No) keys (Vadim O.
+  Ustiansky)
+- wmcliphist now can run with almost invisible window (-s 0) which is usable
+  on systems running windows manager without docking capabilities (Vadim O.
+  Ustiansky)
+- some debug messages was removed, minor code tweaking and auto_take_up feature
+  is now DISABLED by default due to problems with some GTK 2.x based
+  applications
+
 24/08/2003: v0.6
   - exec actions can be performed automatically or on demand by middle mouse
     button click on menu item or by hot key for last captured item (Michael

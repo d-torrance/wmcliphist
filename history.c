@@ -1,4 +1,4 @@
-#include <wmcliphist.h>
+#include "wmcliphist.h"
 
 
 int	autosave_period = 120;
@@ -9,7 +9,7 @@ int	exec_immediately = 1;
  * process new history item
  */
 void
-process_item(char *content, size_t length, gint locked, gboolean exec)
+process_item(char *content, gint locked, gboolean exec)
 {
 	GList		*list_node;
 	ACTION		*action;
@@ -37,29 +37,26 @@ process_item(char *content, size_t length, gint locked, gboolean exec)
 		}
 		if (action->action == ACT_EXEC && exec_immediately == TRUE
 				&& exec == TRUE) {
-
-			exec_item(content, length, action);
-
-		} 
+			exec_item(content, action);
+		}
 		if (action->action == ACT_SUBMENU) {
-
 			/* test if such item already exists in this menu */
 			processed = TRUE;
 
 			/* add item to menu and item list */
-			hist_item = menu_item_add(content, length, locked,
+			hist_item = menu_item_add(content, locked,
 					action->submenu);
 
 			/* when auto_take_up is true, set selection owner to myself */
 			if (auto_take_up == 1) {
 				selected = hist_item;
 				if (gtk_selection_owner_set(dock_app,
-							GDK_SELECTION_PRIMARY,
+							clipboard,
 							GDK_CURRENT_TIME) == 0) {
 					selected = NULL;
 				}
 			}
-			
+
 			dump_history_list("added item");
 			break;
 		}
@@ -68,15 +65,13 @@ process_item(char *content, size_t length, gint locked, gboolean exec)
 	}
 
 	if (processed == FALSE) {
-		hist_item = menu_item_add(content, length, locked, menu_hist);
+		hist_item = menu_item_add(content, locked, menu_hist);
 
-		fprintf(stderr, "auto_take_up=%d\n", auto_take_up);
-		
 		/* when auto_take_up is true, set selection owner to myself */
 		if (auto_take_up == 1) {
 			selected = hist_item;
 			if (gtk_selection_owner_set(dock_app,
-						GDK_SELECTION_PRIMARY,
+						clipboard,
 						GDK_CURRENT_TIME) == 0) {
 				selected = NULL;
 			}
@@ -104,7 +99,7 @@ move_item_to_begin(HISTORY_ITEM *item) {
 	history_items = g_list_concat(list_node, history_items);
 	selected = item;
 	if (gtk_selection_owner_set(dock_app,
-				GDK_SELECTION_PRIMARY,
+				clipboard,
 				GDK_CURRENT_TIME) == 0)
 		selected = NULL;
 }
@@ -114,16 +109,14 @@ move_item_to_begin(HISTORY_ITEM *item) {
  * Exec's an action on item.
  */
 void
-exec_item(char *content, size_t len, ACTION *action)
+exec_item(char *content, ACTION *action)
 {
 	int	msg_result = 0, res;
 	gchar	*msg_buf;
 	gchar	*exec_buf;
-	gchar	*buf;
+	gchar	*converted;
 
-	buf = g_new0(char, len + 1);
-	strncpy(buf, content, len);
-	buf[len] = '\0';
+	converted = from_utf8(content);
 
 	/* If we're not given an action to perform, find the first matching
 	 * exec action, and perform it */
@@ -134,7 +127,8 @@ exec_item(char *content, size_t len, ACTION *action)
 		while (list_node) {
 			a = (ACTION *)list_node->data;
 			/* check if some action is requested */
-			if ((regexec(&a->expression, buf, 0, NULL, 0) == 0)
+			if ((regexec(&a->expression, converted, 0, NULL, 0)
+						== 0)
 			    && (a->action == ACT_EXEC)) {
 				action = a;
 				break;
@@ -143,19 +137,21 @@ exec_item(char *content, size_t len, ACTION *action)
 		}
 	}
 
-	if (!action || action->action != ACT_EXEC) return;
+	if (!action || action->action != ACT_EXEC) {
+		g_free(converted);
+		return;
+	}
 
-	exec_buf = g_new0(char, strlen(buf) +
+	exec_buf = g_new0(char, strlen(converted) +
 			strlen(action->command) + 1);
-	sprintf(exec_buf, action->command, buf);
+	sprintf(exec_buf, action->command, converted);
 	if (confirm_exec) {
 		msg_buf = g_new0(char, strlen(exec_buf) + 256);
-		sprintf(msg_buf, "Do you want to perform the"
+		sprintf(msg_buf, "Do you want to perform the "
 				"following action?\n\n%s",
 				exec_buf);
 		msg_result = show_message(msg_buf,
-				"wmcliphist", "Yes", "No",
-				NULL);
+				"wmcliphist", "Yes", "No", NULL);
 		g_free(msg_buf);
 	}
 
@@ -168,10 +164,12 @@ exec_item(char *content, size_t len, ACTION *action)
 		else if (res == 127)
 			fprintf(stderr, "/bin/sh not found\n");
 		g_free(exec_buf);
+		g_free(converted);
 		_exit(0);
 	} else {
 		/* parent */
 		g_free(exec_buf);
+		g_free(converted);
 	}
 }
 
@@ -179,7 +177,7 @@ exec_item(char *content, size_t len, ACTION *action)
  * loads history from file
  */
 int
-history_load()
+history_load(gboolean dump_only)
 {
 	gchar		*buf;
 	gint		len;
@@ -211,13 +209,16 @@ history_load()
 		}
 		return_val(0);
 	}
-	
+
+	if (dump_only) {
+		printf("<history>\n");
+	}
 	while (!feof(f)) {
 
 		if (fread(&len, sizeof(gint), 1, f) != 1)
 			break;
 
-		if (num_items == num_items_to_keep) {
+		if (num_items == num_items_to_keep && !dump_only) {
 			tmp_errno = E_TOO_MUCH;
 			break;
 		}
@@ -236,17 +237,24 @@ history_load()
 			break;
 		}
 
-		process_item(buf, len, locked, FALSE);
+		if (dump_only) {
+			printf("<item>%s</item>\n", buf);
+		} else {
+			process_item(buf, locked, FALSE);
+		}
 		g_free(buf);
 
 	}
-
 	fclose(f);
-	/* history_items = g_list_reverse(history_items); */
-	dump_history_list("load_history()");
+
+	if (dump_only) {
+		printf("</history>\n");
+	} else {
+		dump_history_list("load_history()");
+	}
 
 	errno = tmp_errno;
-	
+
 	if (errno == 0)
 		return_val(0);
 	else
@@ -298,12 +306,14 @@ history_save()
 
 	list_node = g_list_last(history_items);
 	while (list_node) {
+		int length;
 		hist_item = (HISTORY_ITEM *)list_node->data;
-		if (fwrite(&hist_item->content_len, sizeof(gint), 1, f) != 1) {
+		length = strlen(hist_item->content);
+		if (fwrite(&length, sizeof(gint), 1, f) != 1) {
 			tmp_errno = E_WRITE;
 			break;
 		}
-		if (fwrite(hist_item->content, hist_item->content_len, 1, f) != 1) {
+		if (fwrite(hist_item->content, length, 1, f) != 1) {
 			tmp_errno = E_WRITE;
 			break;
 		}

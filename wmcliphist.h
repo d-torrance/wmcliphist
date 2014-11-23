@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <ctype.h>
 #include <errno.h>
+#include <sys/stat.h>
 
 #include <fcntl.h>
 #include <regex.h>
@@ -19,9 +20,7 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 
-#include <foodock.h>
-
-#include <debug.h>
+#include "debug.h"
 
 
 #define	VERSION			0x0003
@@ -29,6 +28,8 @@
 #define	DEF_MENUKEY		"Control+Alt+V"
 #define	DEF_PREV_ITEM_KEY	"Control+Alt+C"
 #define	DEF_EXEC_ITEM_KEY	"Control+Alt+E"
+#define DEF_CLIPBOARD_STR	"PRIMARY"
+#define DEF_CLIPBOARD		GDK_SELECTION_PRIMARY
 #define	MAX_ITEM_LENGTH		40
 
 
@@ -41,7 +42,6 @@ typedef struct {
 	GtkWidget	*menu_item;
 	gint		locked;
 	gchar		*content;
-	size_t		content_len;
 	GtkWidget	*menu;
 }	HISTORY_ITEM;
 
@@ -65,11 +65,14 @@ extern HISTORY_ITEM	*selected;
 extern gint		locked_count;
 
 
+/* which clipboard to use */
+extern gchar		clipboard_str[32];
+extern GdkAtom		clipboard;
 
 #ifdef DEBUG
 #define	dump_history_list(header)	dump_history_list_fn(header)
 #else
-#define	dump_history_list(header)	
+#define	dump_history_list(header)
 #endif
 
 
@@ -89,7 +92,7 @@ time_conv_select();
  * handles request for selection from other apps
  */
 gint
-selection_handle(GtkWidget *widget, 
+selection_handle(GtkWidget *widget,
 		GtkSelectionData *selection_data,
 		guint info,
 		guint time_stamp,
@@ -155,7 +158,7 @@ rcconfig_free();
  * process new history item
  */
 void
-process_item(char *content, size_t length, gint locked, gboolean exec);
+process_item(char *content, gint locked, gboolean exec);
 
 
 
@@ -188,13 +191,13 @@ move_item_to_begin(HISTORY_ITEM *item);
  * Execute an item.
  */
 void
-exec_item(char *content, size_t len, ACTION *action);
+exec_item(char *content, ACTION *action);
 
 /*
  * loads history from file
  */
 int
-history_load();
+history_load(gboolean dump_only);
 
 /*
  * store history to file
@@ -250,9 +253,7 @@ hotkeys_done();
 
 /* color of locked item */
 extern gchar		locked_color_str[32];
-extern GdkColor		locked_color;
-extern GtkStyle		*style_locked,
-			*style_normal;
+extern GdkRGBA		locked_color;
 extern gint		submenu_count;
 
 /*
@@ -282,10 +283,6 @@ extern GtkWidget	*button;
 
 /* pixmap */
 extern GtkWidget	*pixmap;
-extern GdkPixmap	*icon;
-extern GdkBitmap	*icon_mask;
-extern GdkBitmap	*mask;
-
 
 /*
  * dock button click response
@@ -299,14 +296,13 @@ button_press(GtkWidget *widget, GdkEvent *event, gpointer data);
  * in which case it moves it to the begining
  */
 HISTORY_ITEM *
-menu_item_exists(gchar *content, size_t length, GtkWidget *submenu);
+menu_item_exists(gchar *content, GtkWidget *submenu);
 
 /*
  * add new item to menu
  */
 HISTORY_ITEM *
-menu_item_add(gchar *content, size_t length,
-		gint locked, GtkWidget *target_menu);
+menu_item_add(gchar *content, gint locked, GtkWidget *target_menu);
 
 
 /*
@@ -324,5 +320,12 @@ gint
 show_message(gchar *message, char *title,
 		char *b1_text, char *b2_text, char *b3_text);
 
+
+
+/* ==========================================================================
+ *                                                                  UTILITIES
+ */
+gchar *
+from_utf8(gchar *string);
 
 #endif

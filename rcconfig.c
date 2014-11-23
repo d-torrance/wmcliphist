@@ -1,4 +1,4 @@
-#include <wmcliphist.h>
+#include "wmcliphist.h"
 #include <sys/stat.h>
 
 #define	RC_BUF_SIZE	256
@@ -39,7 +39,7 @@ char *
 rcconfig_get_name(char *append)
 {
 	static gchar	fname[PATH_MAX];
-	gchar		*home;
+	const gchar	*home;
 
 	begin_func("rcconfig_get_name");
 
@@ -66,7 +66,7 @@ action_append(char *expr_buf, char *action_buf, char *cmd_buf)
 	begin_func("action_append");
 
 	action = g_new0(ACTION, 1);
-	
+
 	if (regcomp(&action->expression, expr_buf,
 				REG_EXTENDED|REG_ICASE|REG_NOSUB) != 0) {
 		g_free(action);
@@ -83,11 +83,11 @@ action_append(char *expr_buf, char *action_buf, char *cmd_buf)
 		g_free(action);
 		return_val(-102);
 	}
-	
+
 	action->command = g_strdup(cmd_buf);
 
 	action_list = g_list_append(action_list, action);
-	
+
 	return_val(0);
 }
 
@@ -178,6 +178,9 @@ rcconfig_get(char *fname)
 					} else if (strcmp(direc_buf, "lcolor") == 0) {
 						state = STATE_VALUE;
 						buf_index = 0;
+					} else if (strcmp(direc_buf, "clipboard") == 0) {
+						state = STATE_VALUE;
+						buf_index = 0;
 					} else if (strcmp(direc_buf, "autosave") == 0) {
 						state = STATE_VALUE;
 						buf_index = 0;
@@ -228,6 +231,11 @@ rcconfig_get(char *fname)
 							== 0) {
 						memset(locked_color_str, 0, 32);
 						strncpy(locked_color_str,
+								expr_buf, 31);
+					} else if (strcmp(direc_buf, "clipboard")
+							== 0) {
+						memset(clipboard_str, 0, 32);
+						strncpy(clipboard_str,
 								expr_buf, 31);
 					} else if (strcmp(direc_buf, "autosave") == 0) {
 						autosave_period =
@@ -296,7 +304,7 @@ rcconfig_get(char *fname)
 					buf_index = 0;
 				} else
 					error = 1;
-				
+
 				break;
 
 			case STATE_ACTION:
