@@ -42,35 +42,35 @@ wmcliphist (2.1-1) UNRELEASED; urgency=medium
 
 wmcliphist (0.6-4) unstable; urgency=low
 
-  * Orphan the package 
+  * Orphan the package.
 
  -- Sebastian Ley <ley@debian.org>  Sat, 08 Sep 2007 16:21:48 +0200
 
 wmcliphist (0.6-3) unstable; urgency=low
 
-  * Drop the build dependency on xlibs-dev. (Closes: #347114) 
+  * Drop the build dependency on xlibs-dev (Closes: #347114).
 
  -- Sebastian Ley <ley@debian.org>  Tue, 10 Jan 2006 13:01:13 +0100
 
 wmcliphist (0.6-2) unstable; urgency=low
 
-  * Add -s option to manpage (Closes: #244082)
+  * Add -s option to manpage (Closes: #244082).
 
  -- Sebastian Ley <ley@debian.org>  Fri, 16 Apr 2004 19:25:27 +0200
 
 wmcliphist (0.6-1) unstable; urgency=low
 
-  * New upstream Release
+  * New upstream release.
     - Upstream applied Micheal Beattie's patch for better execution handling
-    (Closes: #204151)
-  * Changed maintainer field to my debian.org address
-  * Update Standards version to 3.6.1.0 (no changes)
+      (Closes: #204151).
+  * Change maintainer field to my debian.org address.
+  * Update Standards-Version to 3.6.1.0 (no changes).
 
  -- Sebastian Ley <ley@debian.org>  Tue,  2 Sep 2003 00:46:48 +0200
 
 wmcliphist (0.5-1) unstable; urgency=low
 
-  * New upstream release
+  * New upstream release.
   * Remove patch for the Makefile. Upstream has incorporated this.
 
  -- Sebastian Ley <sebastian.ley@mmweg.rwth-aachen.de>  Mon, 30 Jun 2003 00:05:10 +0200
@@ -78,17 +78,16 @@ wmcliphist (0.5-1) unstable; urgency=low
 wmcliphist (0.4-1) unstable; urgency=low
 
   * New upstream release.
-  * Removed patch to generate an rc file. Upstream has incorporated this.
-  * Corrected copyright information. wmcliphist is published under the GPL.
-  * Updated standard version to 3.5.10 (no changes)
+  * Remove patch to generate an rc file. Upstream has incorporated this.
+  * Correct copyright information. wmcliphist is published under the GPL.
+  * Update Standards-Version to 3.5.10 (no changes).
   * Install a sample wmcliphistrc file into /usr/share/doc/wmcliphist and post
-    a note about this in the manpage. (Closes: #198972)
+    a note about this in the manpage (Closes: #198972).
 
  -- Sebastian Ley <sebastian.ley@mmweg.rwth-aachen.de>  Thu, 12 Jun 2003 15:26:23 +0200
 
 wmcliphist (0.3-1) unstable; urgency=low
 
-  * Initial Release. (Closes: #187438)
+  * Initial release (Closes: #187438).
 
  -- Sebastian Ley <sebastian@coyote.mmweg.rwth-aachen.de>  Tue,  8 Apr 2003 23:45:20 +0200
-
