@@ -1,7 +1,7 @@
-wmcliphist (2.1-1) UNRELEASED; urgency=medium
+wmcliphist (2.1-1) unstable; urgency=medium
 
   * New upstream release.
-  * New maintainer.
+  * New maintainer (Closes: #533373).
   * debian/compat
     - Bump to 9.
   * debian/control
@@ -38,7 +38,7 @@ wmcliphist (2.1-1) UNRELEASED; urgency=medium
   * debian/wmcliphist.sgml
     - Remove file; was used to generate manpage, which is now included upstream.
 
- -- Doug Torrance <dtorrance@monmouthcollege.edu>  Sun, 23 Nov 2014 09:15:11 -0600
+ -- Doug Torrance <dtorrance@monmouthcollege.edu>  Sun, 23 Nov 2014 12:53:22 -0600
 
 wmcliphist (0.6-4) unstable; urgency=low
 
