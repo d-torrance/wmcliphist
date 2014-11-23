@@ -10,7 +10,7 @@ Vcs-Git: https://github.com/d-torrance/wmcliphist.git
 
 Package: wmcliphist
 Architecture: any
-Depends: ${shlibs:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Dockapp which provides a history for X11 selections
  wmcliphist is a dockable application for Window Maker. It keeps a
  history of clipboard operations and allows you to put previously
